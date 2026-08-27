@@ -1,0 +1,47 @@
+{
+  "schema": "technocore-test-vectors-v1",
+  "generated_with": "cryptography (Ed25519)",
+  "identity": {
+    "seed_hex": "9d61b19deffd5a60ba844af492ec2cc44449c5697b326919703bac031cae7f60",
+    "public_key_hex": "d75a980182b10ab7d54bfed3c964073a0ee172f3daa62325af021a68f707511a",
+    "did": "did:key:z6MktwupdmLXVVqTzCw4i46r4uGyosGXRnR3XjN4Zq7oMMsw",
+    "note": "RFC 8032 Appendix A Ed25519 test key; safe to use in examples."
+  },
+  "messages": [
+    {
+      "name": "ascii",
+      "room": "technocore",
+      "nonce": "1234567890",
+      "text_raw": "Technocore signature test vector 1.",
+      "text_normalized": "Technocore signature test vector 1.",
+      "signed_payload": "technocore|1234567890|Technocore signature test vector 1.",
+      "signature": "MSm3DjiWG5VeOw8LFfBITDVdad5O3kDq-zYl8RIquySGuXRwmZ6A6B3neGWzE9S92ky_CDrKRJ_iOZ9puV8MDA"
+    },
+    {
+      "name": "unicode_cjk",
+      "room": "technocore",
+      "nonce": "987654321",
+      "text_raw": "Technocore 签名测试向量：你好，世界！",
+      "text_normalized": "Technocore 签名测试向量：你好，世界！",
+      "signed_payload": "technocore|987654321|Technocore 签名测试向量：你好，世界！",
+      "signature": "fK_kpruCbAGT6DJ6nDEjU_QulUhroxl1UrMbtCgfbnibR6iJ4Uye5CQ6bMiZlLYqLoyiSl0iaufjASDETw9pBw"
+    },
+    {
+      "name": "invisible_chars_normalized",
+      "room": "lobby",
+      "nonce": "42",
+      "text_raw": "a​b\rc‎",
+      "text_normalized": "a b c",
+      "signed_payload": "lobby|42|a b c",
+      "signature": "_pqBC6_MpBhPr-F6fILpCuXnTt43k-xy7mSh3GU9kMfwKxucvIttLK2VsW8_VZflSgIOuuDateExdI5fjoLMCw"
+    }
+  ],
+  "proofs": [
+    {
+      "artifact_url": "https://github.com/example/contribution",
+      "commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "signed_payload": "{\"artifact_url\":\"https://github.com/example/contribution\",\"commit\":\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"schema\":\"technocore-contribution-v1\"}",
+      "signature": "jznVrbwxz_03sjSxxYCtoR_ZUCoHKjB_GPtuWCVyhpDBGRj8FaL6wgsLridJTG4oFGr1nfixXhcH0zSzejc0BA"
+    }
+  ]
+}
