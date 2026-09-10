@@ -125,13 +125,13 @@ const SAMPLES = [
     did: "did:key:z6MktwupdmLXVVqTzCw4i46r4uGyosGXRnR3XjN4Zq7oMMsw",
     room: "technocore", nonce: "987654321",
     text: "Technocore 签名测试向量：你好，世界！",
-    sig: "5SggItgkLN1bksPQwQ1Y-JjPEPRKML-HelX_cLRfj81wX3sK2PbZfU4MvlCqYXGMalicZc0IjG7QkRfAKRb8AA"
+    sig: "fK_kpruCbAGT6DJ6nDEjU_QulUhroxl1UrMbtCgfbnibR6iJ4Uye5CQ6bMiZlLYqLoyiSl0iaufjASDETw9pBw"
   },
   {
     did: "did:key:z6MktwupdmLXVVqTzCw4i46r4uGyosGXRnR3XjN4Zq7oMMsw",
     room: "lobby", nonce: "42",
     text: "a\u200bb\u000dc\u200e",
-    sig: "OR_r8mEynVTMoB_CwwM6YjdTRwT4sEh1wBG8UlHPu2V3HLEE-sJ-sZKC0rCQTe_oQG6u11gcupnLF9AmZ6lqAw"
+    sig: "_pqBC6_MpBhPr-F6fILpCuXnTt43k-xy7mSh3GU9kMfwKxucvIttLK2VsW8_VZflSgIOuuDateExdI5fjoLMCw"
   }
 ];
 /* NOTE: sample signatures below are filled from test-vectors/vectors.json at build time
@@ -177,7 +177,16 @@ function normalizeMessage(text) {
 function b64urlToBytes(s) {
   if (!/^[A-Za-z0-9_-]{86}$/.test(s))
     throw new Error("签名必须是 86 位无填充 base64url");
-  return new Uint8Array(Buffer.from(s, "base64url"));
+  let b = s.replace(/-/g, "+").replace(/_/g, "/");
+  while (b.length % 4) b += "=";
+  const bin = atob(b);
+  return Uint8Array.from(bin, c => c.charCodeAt(0));
+}
+
+function toHex(bytes) {
+  let out = "";
+  for (const x of bytes) out += x.toString(16).padStart(2, "0");
+  return out;
 }
 
 async function verify() {
@@ -212,7 +221,7 @@ async function verify() {
     const details =
       "规范化文本: " + JSON.stringify(normalized) + "\n" +
       "签名载荷  : " + room + "|" + nonce + "|" + normalized + "\n" +
-      "公钥 (hex): " + Buffer.from(publicKey).toString("hex") + "\n" +
+      "公钥 (hex): " + toHex(publicKey) + "\n" +
       "算法      : Ed25519 (WebCrypto 原生)";
     show(ok, details);
   } catch (e) {
